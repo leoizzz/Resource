@@ -1,0 +1,908 @@
+﻿<Window x:Class="TID.Plugin.Resource.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      
+        mc:Ignorable="d"
+       Title="MainWindow" WindowStyle="None" Height="680" Width="1100" MinHeight="680" MinWidth="1100" MaxHeight="680" MaxWidth="1100" Background="Transparent" AllowsTransparency="True">
+    
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/ControlEx/ZYKPathDictionary.xaml" />
+                <!--使用path的资源字典-->
+            </ResourceDictionary.MergedDictionaries>
+            <Style x:Key="FocusVisual">
+                <Setter Property="Control.Template">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <Rectangle Margin="2" SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <SolidColorBrush x:Key="Button.Static.Background" Color="#FFDDDDDD"/>
+            <SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070"/>
+            <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#FFBEE6FD"/>
+            <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF3C7FB1"/>
+            <SolidColorBrush x:Key="Button.Pressed.Background" Color="#FFC4E5F6"/>
+            <SolidColorBrush x:Key="Button.Pressed.Border" Color="#FF2C628B"/>
+            <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4"/>
+            <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
+            <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383"/>
+            <Style x:Key="ButtonStyleBDCP" TargetType="{x:Type Button}">
+                <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+                <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="Padding" Value="1"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="20,0,0,20"  BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
+                                <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsDefaulted" Value="true">
+                                    <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                                </Trigger>
+                                <Trigger Property="IsMouseOver" Value="false">
+                                    <Setter Property="Background" TargetName="border" Value="#717171"/>
+                                    <Setter Property="BorderBrush" TargetName="border" Value="#A1A1A1"/>
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="true">
+                                    <Setter Property="Background" TargetName="border" Value="#32D3FF"/>
+                                    <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
+                                </Trigger>
+                                <Trigger Property="IsEnabled" Value="false">
+                                    <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
+                                    <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
+                                    <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="ButtonStyleWWJS" TargetType="{x:Type Button}">
+                <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+                <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="Padding" Value="1"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="0,20,20,0" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
+                                <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsDefaulted" Value="true">
+                                    <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                                </Trigger>
+                                <Trigger Property="IsMouseOver" Value="false">
+                                    <Setter Property="Background" TargetName="border" Value="#717171"/>
+                                    <Setter Property="BorderBrush" TargetName="border" Value="#A1A1A1"/>
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="true">
+                                    <Setter Property="Background" TargetName="border" Value="#32D3FF"/>
+                                    <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
+                                </Trigger>
+                                <Trigger Property="IsEnabled" Value="false">
+                                    <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
+                                    <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
+                                    <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="ButtonStyleEJBT" TargetType="{x:Type Button}">
+                <!--二级button的统一样式-->
+                <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+                <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="Padding" Value="1"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="5,5,5,5" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
+                                <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsDefaulted" Value="true">
+                                    <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                                </Trigger>
+                                <Trigger Property="IsMouseOver" Value="false">
+                                    <Setter Property="Background" TargetName="border" Value="#717171"/>
+                                    <Setter Property="BorderBrush" TargetName="border" Value="#A1A1A1"/>
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="true">
+                                    <Setter Property="Background" TargetName="border" Value="#32D3FF"/>
+                                    <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
+                                </Trigger>
+                                <Trigger Property="IsEnabled" Value="false">
+                                    <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
+                                    <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
+                                    <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="ButtonStyletCenter" TargetType="{x:Type Button}">
+                <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+                <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="Padding" Value="1"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
+                                <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsDefaulted" Value="true">
+                                    <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                                </Trigger>
+                                <Trigger Property="IsMouseOver" Value="false">
+                                    <Setter Property="Background" TargetName="border" Value="#717171"/>
+                                    <Setter Property="BorderBrush" TargetName="border" Value="#A1A1A1"/>
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="true">
+                                    <Setter Property="Background" TargetName="border" Value="#32D3FF"/>
+                                    <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
+                                </Trigger>
+                                <Trigger Property="IsEnabled" Value="false">
+                                    <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
+                                    <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
+                                    <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <SolidColorBrush x:Key="Item.MouseOver.Background" Color="#1F26A0DA"/>
+            <SolidColorBrush x:Key="Item.MouseOver.Border" Color="#a826A0Da"/>
+            <SolidColorBrush x:Key="Item.SelectedInactive.Background" Color="#3DDADADA"/>
+            <SolidColorBrush x:Key="Item.SelectedInactive.Border" Color="#FFDADADA"/>
+            <SolidColorBrush x:Key="Item.SelectedActive.Background" Color="#3D26A0DA"/>
+            <SolidColorBrush x:Key="Item.SelectedActive.Border" Color="#FF26A0DA"/>
+            <Style x:Key="ListBoxItemStyleBDCP" TargetType="{x:Type ListBoxItem}">
+                <Setter Property="SnapsToDevicePixels" Value="True"/>
+                <Setter Property="Padding" Value="4,1"/>
+                <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+                <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="BorderBrush" Value="Transparent"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                            <Border x:Name="Bd"  SnapsToDevicePixels="true">
+                                <Button Height="35" Width="156" Content="{Binding DiskName,Mode=TwoWay}" Command="{Binding DiskFile,Mode=TwoWay}" Foreground="White" Margin="0 3 0 3" Style="{DynamicResource ButtonStyleEJBT}"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <MultiTrigger>
+                                    <MultiTrigger.Conditions>
+                                        <Condition Property="IsMouseOver" Value="True"/>
+                                    </MultiTrigger.Conditions>
+                                    <Setter Property="Background" TargetName="Bd" Value="{StaticResource Item.MouseOver.Background}"/>
+                                    <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource Item.MouseOver.Border}"/>
+                                </MultiTrigger>
+                                <MultiTrigger>
+                                    <MultiTrigger.Conditions>
+                                        <Condition Property="Selector.IsSelectionActive" Value="False"/>
+                                        <Condition Property="IsSelected" Value="True"/>
+                                    </MultiTrigger.Conditions>
+                                    <Setter Property="Background" TargetName="Bd" Value="{StaticResource Item.SelectedInactive.Background}"/>
+                                    <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource Item.SelectedInactive.Border}"/>
+                                </MultiTrigger>
+                                <MultiTrigger>
+                                    <MultiTrigger.Conditions>
+                                        <Condition Property="Selector.IsSelectionActive" Value="True"/>
+                                        <Condition Property="IsSelected" Value="True"/>
+                                    </MultiTrigger.Conditions>
+                                    <Setter Property="Background" TargetName="Bd" Value="{StaticResource Item.SelectedActive.Background}"/>
+                                    <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource Item.SelectedActive.Border}"/>
+                                </MultiTrigger>
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter Property="TextElement.Foreground" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="ListBoxItemstyleWJGL" TargetType="{x:Type ListBoxItem}">
+                <!--文件管理-->
+                <Setter Property="SnapsToDevicePixels" Value="True"/>
+                <Setter Property="Padding" Value="4,1"/>
+                <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+                <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="BorderBrush" Value="Transparent"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                            <Grid>
+                                <Border x:Name="Bd" SnapsToDevicePixels="true">
+                                    <Button Template="{DynamicResource ButtonControlTemplateWJJ}" Width="105" Height="100" Margin="3 3 3 3" Command="{Binding NextList}"/>
+                                </Border>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <MultiTrigger>
+                                    <MultiTrigger.Conditions>
+                                        <Condition Property="IsMouseOver" Value="True"/>
+                                    </MultiTrigger.Conditions>
+                                    <Setter Property="Background" TargetName="Bd" Value="{StaticResource Item.MouseOver.Background}"/>
+                                    <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource Item.MouseOver.Border}"/>
+                                </MultiTrigger>
+                                <MultiTrigger>
+                                    <MultiTrigger.Conditions>
+                                        <Condition Property="Selector.IsSelectionActive" Value="False"/>
+                                        <Condition Property="IsSelected" Value="True"/>
+                                    </MultiTrigger.Conditions>
+                                    <Setter Property="Background" TargetName="Bd" Value="{StaticResource Item.SelectedInactive.Background}"/>
+                                    <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource Item.SelectedInactive.Border}"/>
+                                </MultiTrigger>
+                                <MultiTrigger>
+                                    <MultiTrigger.Conditions>
+                                        <Condition Property="Selector.IsSelectionActive" Value="True"/>
+                                        <Condition Property="IsSelected" Value="True"/>
+                                    </MultiTrigger.Conditions>
+                                    <Setter Property="Background" TargetName="Bd" Value="{StaticResource Item.SelectedActive.Background}"/>
+                                    <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource Item.SelectedActive.Border}"/>
+                                </MultiTrigger>
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter Property="TextElement.Foreground" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <ControlTemplate x:Key="ButtonControlTemplateWJJ" TargetType="{x:Type Button}">
+                <Grid Background="DarkGray">
+                    <Image Source="{Binding Icon,Mode=TwoWay}" Height="50" Width="50" Margin="0 0 0 40"/>
+                    <Image Source="D:\Work\DELIN_TEACHSYS\src\TID\Plugins\TID.Plugin.Resource\Resources\Images\WJJ.png" Height="60" Width="60" Margin="0 0 0 40" Visibility="{Binding ShowFolder,Mode=TwoWay}"/>
+                    <Label Content="{Binding FileName,Mode=TwoWay}" Margin="0 70 0 0" HorizontalAlignment="Center"/>
+                </Grid>
+            </ControlTemplate>
+            <Style x:Key="ListBoxItemURLbutton" TargetType="{x:Type ListBoxItem}">
+                <Setter Property="SnapsToDevicePixels" Value="True"/>
+                <Setter Property="Padding" Value="4,1"/>
+                <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+                <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="BorderBrush" Value="Transparent"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                            <Grid>
+                            <Border x:Name="Bd" SnapsToDevicePixels="true">
+                                    <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                </Border>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Content="{Binding Buttontext,Mode=TwoWay}" Command="{Binding SelectURL}" Width="70" Height="25"/>
+                                </StackPanel>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <MultiTrigger>
+                                    <MultiTrigger.Conditions>
+                                        <Condition Property="IsMouseOver" Value="True"/>
+                                    </MultiTrigger.Conditions>
+                                    <Setter Property="Background" TargetName="Bd" Value="{StaticResource Item.MouseOver.Background}"/>
+                                    <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource Item.MouseOver.Border}"/>
+                                </MultiTrigger>
+                                <MultiTrigger>
+                                    <MultiTrigger.Conditions>
+                                        <Condition Property="Selector.IsSelectionActive" Value="False"/>
+                                        <Condition Property="IsSelected" Value="True"/>
+                                    </MultiTrigger.Conditions>
+                                    <Setter Property="Background" TargetName="Bd" Value="{StaticResource Item.SelectedInactive.Background}"/>
+                                    <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource Item.SelectedInactive.Border}"/>
+                                </MultiTrigger>
+                                <MultiTrigger>
+                                    <MultiTrigger.Conditions>
+                                        <Condition Property="Selector.IsSelectionActive" Value="True"/>
+                                        <Condition Property="IsSelected" Value="True"/>
+                                    </MultiTrigger.Conditions>
+                                    <Setter Property="Background" TargetName="Bd" Value="{StaticResource Item.SelectedActive.Background}"/>
+                                    <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource Item.SelectedActive.Border}"/>
+                                </MultiTrigger>
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter Property="TextElement.Foreground" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </ResourceDictionary>
+    </Window.Resources>
+    
+    <Border BorderBrush="#9AA4A7" BorderThickness="2">
+        <Grid Background="#464646">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="65"/>
+                <RowDefinition Height="3"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Column="0" MouseMove="Window_MouseMove">
+                <TextBlock Text="资源库" FontSize="40" Margin="30 0 0 0" Foreground="White"/>
+                <TabPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Button Content="本地磁盘" Height="40" Width="120" Foreground="White" Command="{Binding ChoiceGrid}" CommandParameter="4" Style="{DynamicResource ButtonStyleBDCP}"/>
+                    <Button Content="云资源库" Height="40" Width="120" Foreground="White" Command="{Binding ChoiceGrid}" CommandParameter="3" Style="{DynamicResource ButtonStyletCenter}"/>
+                    <Button Content="任务列表" Height="40" Width="120" Foreground="White" Command="{Binding ChoiceGrid}" CommandParameter="2" Style="{DynamicResource ButtonStyletCenter}"/>
+                    <Button Content="外网检索" Height="40" Width="120" Foreground="White" Command="{Binding ChoiceGrid}" CommandParameter="1" Style="{DynamicResource ButtonStyleWWJS}"/>
+                </TabPanel>
+            </Grid>
+            <Grid Grid.Row="1" Background="#5D5D5D">
+            </Grid>
+            <Grid Grid.Row="2" Visibility="{Binding IsShowWWZY,Mode=TwoWay}">
+                <!--外网检索-->
+            </Grid>
+            <Grid Grid.Row="2" Visibility="{Binding IsShowRWLB,Mode=TwoWay}">
+                <!--任务列表-->
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="160"/>
+                    <ColumnDefinition Width="3"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <StackPanel Orientation="Vertical">
+                        <Button  Height="35" Style="{DynamicResource ButtonStyleEJBT}" Command="{Binding ChoiceRWLB}" CommandParameter="1"  Margin="3 5 3 3">
+                            <StackPanel Orientation="Horizontal">
+                                <Viewbox Width="20" Height="20">
+                                    <Path Data="{StaticResource DownloadList}" Fill="White"/>
+                                </Viewbox>
+                                <Label Content="下载列表" Foreground="White"/>
+                            </StackPanel>
+                        </Button>
+                        <Button  Height="35" Style="{DynamicResource ButtonStyleEJBT}" Command="{Binding ChoiceRWLB}" CommandParameter="2" Margin="3 5 3 3">
+                            <StackPanel Orientation="Horizontal">
+                                <Viewbox Width="20" Height="20">
+                                    <Path Data="{StaticResource UploadCloud}" Fill="White"/>
+                                </Viewbox>
+                                <Label Content="上传列表" Foreground="White"/>
+                            </StackPanel>
+                        </Button>
+
+                        <Button  Height="35" Style="{DynamicResource ButtonStyleEJBT}" Command="{Binding ChoiceRWLB}" CommandParameter="3" Margin="3 5 3 3">
+                            <StackPanel Orientation="Horizontal">
+                                <Viewbox Width="20" Height="20">
+                                    <Path Data="{StaticResource Finish}" Fill="White"/>
+                                </Viewbox>
+                                <Label Content="  已完成" Foreground="White"/>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+                <Grid Grid.Column="1" Background="#5D5D5D"/>
+                <Grid Grid.Column="2" Visibility="{Binding XZLB,Mode=TwoWay}">
+                    <Border BorderBrush="#5D5D5D" BorderThickness="2" Margin="4 4 18 10" Background="White">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="50"/>
+                                <RowDefinition Height="3"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0">
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Background="White">
+                                    <Label Content="下载总进度:" FontSize="16"/>
+                                    <ProgressBar Margin="10 0 0 0" Width="580" Height="20" Minimum="0" Maximum="100" VerticalAlignment="Center" Value="50"/>
+                                    <Button Margin="10 0 0 0" Width="100" Height="28" >
+                                        <StackPanel Orientation="Horizontal">
+                                            <Viewbox Width="15" Height="15">
+                                                <Path Data="{StaticResource StartIcon}" Fill="Gray"/>
+                                            </Viewbox>
+                                            <Label Content="全部开始" />
+                                        </StackPanel>
+                                    </Button>
+                                    <Button Margin="10 0 0 0" Width="100" Height="28">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Viewbox Width="15" Height="15">
+                                                <Path Data="{StaticResource CancelIcon}" Fill="Gray"/>
+                                            </Viewbox>
+                                            <Label Content="全部取消" />
+                                        </StackPanel>
+                                    </Button>
+                                </StackPanel>
+                            </Grid>
+                            <Grid Grid.Row="1" Background="#5D5D5D"/>
+                            <Grid Grid.Row="2">
+                                <ListBox Height="60" VerticalAlignment="Top" Margin="3 5 3 0">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Height="45" Width="50" Stretch="Fill" Source="D:\Work\DELIN_TEACHSYS\src\TID\Plugins\TID.Plugin.Resource\Resources\Images\WJJ.png"/>
+                                        <StackPanel Orientation="Vertical" Margin="10 0 0 0" Width="350">
+                                            <Label Content="高等数学ppt" FontSize="14" />
+                                            <Label Content="30MB/60MB"/>
+                                        </StackPanel>
+                                        <ProgressBar Margin="10 0 0 0" Width="200" Height="18" Minimum="0" Maximum="100" Value="50"/>
+                                        <Button  Height="28" Width="70" Margin="5 0 0 0">
+                                            <StackPanel Orientation="Horizontal">
+                                                <Viewbox Width="12" Height="12">
+                                                    <Path Data="{StaticResource PauseIcon}" Fill="Gray"/>
+                                                </Viewbox>
+                                                <Label Content="暂停" />
+                                            </StackPanel>
+                                        </Button>
+                                        <Button  Height="28" Width="70" Margin="5 0 0 0">
+                                            <StackPanel Orientation="Horizontal">
+                                                <Viewbox Width="12" Height="12">
+                                                    <Path Data="{StaticResource CancelIcon}" Fill="Gray"/>
+                                                </Viewbox>
+                                                <Label Content="取消"/>
+                                            </StackPanel>
+                                        </Button>
+                                        <Button  Height="28" Width="100" Margin="5 0 0 0">
+                                            <StackPanel Orientation="Horizontal">
+                                                <Viewbox Width="12" Height="12">
+                                                    <Path Data="{StaticResource CancelIcon}" Fill="Gray"/>
+                                                </Viewbox>
+                                                <Label Content="打开文件夹" />
+                                            </StackPanel>
+                                        </Button>
+                                    </StackPanel>
+                                </ListBox>
+                            </Grid>
+                        </Grid>
+                    </Border>
+                </Grid>
+                <Grid Grid.Column="2" Visibility="{Binding SCLB,Mode=TwoWay}">
+                    <Border BorderBrush="#5D5D5D" BorderThickness="2" Margin="4 4 18 10" Background="White">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="50"/>
+                                <RowDefinition Height="3"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0">
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Background="White">
+                                    <Label Content="上传总进度:" FontSize="16"/>
+                                    <ProgressBar Margin="10 0 0 0" Width="580" Height="20" Minimum="0" Maximum="100" VerticalAlignment="Center" Value="50"/>
+                                    <Button Margin="10 0 0 0" Width="100" Height="28" >
+                                        <StackPanel Orientation="Horizontal">
+                                            <Viewbox Width="15" Height="15">
+                                                <Path Data="{StaticResource StartIcon}" Fill="Gray"/>
+                                            </Viewbox>
+                                            <Label Content="全部开始" />
+                                        </StackPanel>
+                                    </Button>
+                                    <Button Margin="10 0 0 0" Width="100" Height="28">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Viewbox Width="15" Height="15">
+                                                <Path Data="{StaticResource CancelIcon}" Fill="Gray"/>
+                                            </Viewbox>
+                                            <Label Content="全部取消" />
+                                        </StackPanel>
+                                    </Button>
+                                </StackPanel>
+                            </Grid>
+                            <Grid Grid.Row="1" Background="#5D5D5D"/>
+                            <Grid Grid.Row="2">
+                                <ListBox Height="60" VerticalAlignment="Top" Margin="3 5 3 0">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Height="45" Width="50" Stretch="Fill" Source="D:\Work\DELIN_TEACHSYS\src\TID\Plugins\TID.Plugin.Resource\Resources\Images\WJJ.png"/>
+                                        <StackPanel Orientation="Vertical" Margin="10 0 0 0" Width="350">
+                                            <Label Content="高等数学ppt" FontSize="14" />
+                                            <Label Content="30MB/60MB"/>
+                                        </StackPanel>
+                                        <ProgressBar Margin="10 0 0 0" Width="200" Height="18" Minimum="0" Maximum="100" Value="50"/>
+                                        <Button  Height="28" Width="70" Margin="5 0 0 0">
+                                            <StackPanel Orientation="Horizontal">
+                                                <Viewbox Width="12" Height="12">
+                                                    <Path Data="{StaticResource PauseIcon}" Fill="Gray"/>
+                                                </Viewbox>
+                                                <Label Content="暂停" />
+                                            </StackPanel>
+                                        </Button>
+                                        <Button  Height="28" Width="70" Margin="5 0 0 0">
+                                            <StackPanel Orientation="Horizontal">
+                                                <Viewbox Width="12" Height="12">
+                                                    <Path Data="{StaticResource CancelIcon}" Fill="Gray"/>
+                                                </Viewbox>
+                                                <Label Content="取消"/>
+                                            </StackPanel>
+                                        </Button>
+                                        <Button  Height="28" Width="100" Margin="5 0 0 0">
+                                            <StackPanel Orientation="Horizontal">
+                                                <Viewbox Width="12" Height="12">
+                                                    <Path Data="{StaticResource CancelIcon}" Fill="Gray"/>
+                                                </Viewbox>
+                                                <Label Content="打开文件夹" />
+                                            </StackPanel>
+                                        </Button>
+                                    </StackPanel>
+                                </ListBox>
+                            </Grid>
+                        </Grid>
+                    </Border>
+                </Grid>
+                <Grid Grid.Column="2"  Visibility="{Binding YWC,Mode=TwoWay}">
+                    <Border BorderBrush="#5D5D5D" BorderThickness="2" Margin="4 4 18 10" Background="White">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="50"/>
+                                <RowDefinition Height="3"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0">
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Background="White">
+                                    <Label Content="共传输完成1个文件！" FontSize="16"/>
+                                </StackPanel>
+                            </Grid>
+                            <Grid Grid.Row="1" Background="#5D5D5D"/>
+                            <Grid Grid.Row="2">
+                                <ListBox Height="60" VerticalAlignment="Top" Margin="3 5 3 0">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Height="45" Width="50" Stretch="Fill" Source="D:\Work\DELIN_TEACHSYS\src\TID\Plugins\TID.Plugin.Resource\Resources\Images\WJJ.png"/>
+                                        <StackPanel Orientation="Vertical" Margin="10 0 0 0" Width="450">
+                                            <Label Content="计算机原理.ppt" FontSize="14" />
+                                            <Label  Content="60MB"/>
+                                        </StackPanel>
+                                        <Button Content="打开文件" Height="30" Width="100" Margin="15 0 0 0"/>
+                                        <Button Content="打开所在文件夹" Height="30" Width="100" Margin="15 0 0 0"/>
+                                        <Button Content="清除记录" Height="30" Width="100" Margin="15 0 0 0"/>
+                                    </StackPanel>
+                                </ListBox>
+                            </Grid>
+                        </Grid>
+                    </Border>
+                </Grid>
+            </Grid>
+
+            <Grid Grid.Column="2" Visibility="{Binding WRW,Mode=TwoWay}"/>
+            <Grid Grid.Row="2" Visibility="{Binding IsShowYZYK,Mode=TwoWay}">
+                <!--云资源库-->
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="160"/>
+                    <ColumnDefinition Width="3"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <StackPanel Orientation="Vertical">
+                        <Label Content="文件类型" FontSize="18" Foreground="White"/>
+                        <Button Height="35" Style="{DynamicResource ButtonStyleEJBT}" Margin="3 3 3 5">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                <Viewbox Width="20" Height="20">
+                                    <Path Data="{StaticResource AllDoc}" Fill="White"/>
+                                </Viewbox>
+                                <Label Content=" 全部文件" Foreground="White"/>
+                            </StackPanel>
+                        </Button>
+                        <Border BorderBrush="#5D5D5D" BorderThickness="1" Width="160"/>
+                        <Button  Height="35" Style="{DynamicResource ButtonStyleEJBT}" Margin="3 5 3 3">
+                            <StackPanel Orientation="Horizontal">
+                                <Viewbox Width="20" Height="20">
+                                    <Path Data="{StaticResource WordDoc}" Fill="White"/>
+                                </Viewbox>
+                                <Label Content="Word文档" Foreground="White"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Height="35" Style="{DynamicResource ButtonStyleEJBT}" Margin="3 3 3 3">
+                            <StackPanel Orientation="Horizontal">
+                                <Viewbox Width="20" Height="20">
+                                    <Path Data="{StaticResource ExcelDoc}" Fill="White"/>
+                                </Viewbox>
+                                <Label Content="Excel文档" Foreground="White"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Height="35" Style="{DynamicResource ButtonStyleEJBT}" Margin="3 3 3 3">
+                            <StackPanel Orientation="Horizontal">
+                                <Viewbox Width="20" Height="20">
+                                    <Path Data="{StaticResource PptDoc}" Fill="White"/>
+                                </Viewbox>
+                                <Label Content="  PPT文档" Foreground="White"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Height="35" Style="{DynamicResource ButtonStyleEJBT}" Margin="3 3 3 3">
+                            <StackPanel Orientation="Horizontal">
+                                <Viewbox Width="20" Height="20">
+                                    <Path Data="{StaticResource ImgIcon}" Fill="White"/>
+                                </Viewbox>
+                                <Label Content="图片" Foreground="White"/>
+                            </StackPanel>
+                        </Button>
+                        <Button  Height="35" Style="{DynamicResource ButtonStyleEJBT}" Margin="3 3 3 3">
+                            <StackPanel Orientation="Horizontal">
+                                <Viewbox Width="20" Height="20">
+                                    <Path Data="{StaticResource VideoIcon}" Fill="White"/>
+                                </Viewbox>
+                                <Label Content="视频" Foreground="White"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Height="35" Style="{DynamicResource ButtonStyleEJBT}" Margin="3 3 3 3">
+                            <StackPanel Orientation="Horizontal">
+                                <Viewbox Width="20" Height="20">
+                                    <Path Data="{StaticResource MusicIcon}" Fill="White"/>
+                                </Viewbox>
+                                <Label Content="音乐" Foreground="White"/>
+                            </StackPanel>
+                        </Button>
+                        <Button  Height="35" Style="{DynamicResource ButtonStyleEJBT}" Margin="3 3 3 3">
+                            <StackPanel Orientation="Horizontal">
+                                <Viewbox Width="20" Height="20">
+                                    <Path Data="{StaticResource VcrIcon}" Fill="White"/>
+                                </Viewbox>
+                                <Label Content="录像" Foreground="White"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Height="35" Style="{DynamicResource ButtonStyleEJBT}" Margin="3 3 3 3">
+                            <StackPanel Orientation="Horizontal">
+                                <Viewbox Width="20" Height="20">
+                                    <Path Data="{StaticResource OtherIcon}" Fill="White"/>
+                                </Viewbox>
+                                <Label Content="其他" Foreground="White"/>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+                <Grid Grid.Column="1" Background="#5D5D5D"/>
+                <Grid Grid.Column="2" Margin="5 5 0 0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="35"/>
+                        <RowDefinition Height="3"/>
+                        <RowDefinition Height="35"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                            <ListBox Height="28" Width="600" HorizontalAlignment="Left"/>
+                            <TextBox Height="28" Width="210" Margin="50 0 0 0" FontSize="22"/>
+                            <Button Width="28" Margin="10 0 0 0" Style="{DynamicResource ButtonStyleEJBT}">
+                                <Viewbox Width="20" Height="20">
+                                    <Path Data="{StaticResource SearchIcon}" Fill="White"/>
+                                </Viewbox>
+                            </Button>
+                        </StackPanel>
+                    </Grid>
+                    <Grid Grid.Row="1" Background="#5D5D5D"/>
+                    <Grid Grid.Row="2">
+                        <StackPanel Orientation="Horizontal">
+                            <Button Width="100" Height="30" HorizontalAlignment="Left" Margin="10 0 0 0" Style="{DynamicResource ButtonStyleEJBT}">
+                                <StackPanel Orientation="Horizontal">
+                                    <Viewbox Width="20" Height="20">
+                                        <Path Data="{StaticResource Uploading}" Fill="White"/>
+                                    </Viewbox>
+                                    <Label Content="上传" Foreground="White"/>
+                                </StackPanel>
+                            </Button>
+                            <Button  Width="100" Height="30" HorizontalAlignment="Left" Margin="10 0 0 0" Style="{DynamicResource ButtonStyleEJBT}">
+                                <StackPanel Orientation="Horizontal">
+                                    <Viewbox Width="20" Height="20">
+                                        <Path Data="{StaticResource Downloading}" Fill="White"/>
+                                    </Viewbox>
+                                    <Label Content="下载" Foreground="White"/>
+                                </StackPanel>
+                            </Button>
+                            <Button  Width="150" Height="30" HorizontalAlignment="Left" Margin="10 0 0 0" Style="{DynamicResource ButtonStyleEJBT}">
+                                <StackPanel Orientation="Horizontal">
+                                    <Viewbox Width="20" Height="20">
+                                        <Path Data="{StaticResource NewFolder}" Fill="White"/>
+                                    </Viewbox>
+                                    <Label Content="新建文件夹" Foreground="White"/>
+                                </StackPanel>
+                            </Button>
+                            <Button Width="100" Height="30" HorizontalAlignment="Left" Margin="10 0 0 0" Style="{DynamicResource ButtonStyleEJBT}">
+                                <StackPanel Orientation="Horizontal">
+                                    <Viewbox Width="20" Height="20">
+                                        <Path Data="{StaticResource Refresh}" Fill="White"/>
+                                    </Viewbox>
+                                    <Label Content="刷新" Foreground="White"/>
+                                </StackPanel>
+                            </Button>
+                            <Button Width="100" Height="30" HorizontalAlignment="Left" Margin="10 0 0 0" Style="{DynamicResource ButtonStyleEJBT}">
+                                <StackPanel Orientation="Horizontal">
+                                    <Viewbox Width="20" Height="20">
+                                        <Path Data="{StaticResource Delelte}" Fill="White"/>
+                                    </Viewbox>
+                                    <Label Content="删除" Foreground="White"/>
+                                </StackPanel>
+                            </Button>
+                            <Button Width="100" Height="30" HorizontalAlignment="Left" Margin="10 0 0 0" Style="{DynamicResource ButtonStyleEJBT}">
+                                <StackPanel Orientation="Horizontal">
+                                    <Viewbox Width="20" Height="20">
+                                        <Path Data="{StaticResource Share}" Fill="White"/>
+                                    </Viewbox>
+                                    <Label Content="分享" Foreground="White"/>
+                                </StackPanel>
+                            </Button>
+                        </StackPanel>
+                    </Grid>
+                    <Grid Grid.Row="3" Background="#FFFFFF" Margin="0 3 20 20">
+                        <Grid.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="上传"/>
+                                <MenuItem Header="新建文件夹"/>
+                                <MenuItem Header="刷新"/>
+                                <MenuItem Header="粘贴"/>
+                                <MenuItem Header="查看方式">
+                                    <MenuItem Header="列表显示"/>
+                                    <MenuItem Header="略缩图"/>
+                                </MenuItem>
+                            </ContextMenu>
+                        </Grid.ContextMenu>
+                        <ListBox Height="60" Width="60" Background="AliceBlue" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20 10 10 10">
+                            <ListBox.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="打开"/>
+                                    <MenuItem Header="复制"/>
+                                    <MenuItem Header="剪切"/>
+                                    <MenuItem Header="删除"/>
+                                    <MenuItem Header="下载"/>
+                                    <MenuItem Header="重命名"/>
+                                </ContextMenu>
+                            </ListBox.ContextMenu>
+                        </ListBox>
+                    </Grid>
+                </Grid>
+            </Grid>
+            <Grid Grid.Row="2" Visibility="{Binding IsShowBDCP,Mode=TwoWay}">
+                <!--本地磁盘-->
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="160"/>
+                    <ColumnDefinition Width="3"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <StackPanel Orientation="Vertical">
+                        <Label Content="快速访问" FontSize="18" Foreground="White"/>
+                        <Button  Height="35" Style="{DynamicResource ButtonStyleEJBT}" Margin="3 3 3 3" Command="{Binding Openbutton,Mode=TwoWay}" CommandParameter="desk">
+                            <StackPanel Orientation="Horizontal">
+                                <Viewbox Width="20" Height="20">
+                                    <Path Data="{StaticResource DeskIcon}" Fill="White"/>
+                                </Viewbox>
+                                <Label Content="桌面" Foreground="White"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Height="35" Style="{DynamicResource ButtonStyleEJBT}" Margin="3 3 3 3"  Command="{Binding Openbutton,Mode=TwoWay}" CommandParameter="download">
+                            <StackPanel Orientation="Horizontal">
+                                <Viewbox Width="20" Height="20">
+                                    <Path Data="{StaticResource Downloading}" Fill="White"/>
+                                </Viewbox>
+                                <Label Content="视频" Foreground="White"/>
+                            </StackPanel>
+                        </Button>
+                        <Button  Height="35" Style="{DynamicResource ButtonStyleEJBT}" Margin="3 3 3 3"  Command="{Binding Openbutton,Mode=TwoWay}" CommandParameter="document">
+                            <StackPanel Orientation="Horizontal">
+                                <Viewbox Width="20" Height="20">
+                                    <Path Data="{StaticResource DocIcon}" Fill="White"/>
+                                </Viewbox>
+                                <Label Content="文档" Foreground="White"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Height="35" Style="{DynamicResource ButtonStyleEJBT}" Margin="3 3 3 3"  Command="{Binding Openbutton,Mode=TwoWay}" CommandParameter="img">
+                            <StackPanel Orientation="Horizontal">
+                                <Viewbox Width="20" Height="20">
+                                    <Path Data="{StaticResource ImgIcon}" Fill="White"/>
+                                </Viewbox>
+                                <Label Content="图片" Foreground="White"/>
+                            </StackPanel>
+                        </Button>
+                        <Label Content="本地磁盘" FontSize="18" Foreground="White"/>
+                        <ListBox ItemContainerStyle="{DynamicResource ListBoxItemStyleBDCP}" BorderThickness="0" Background="#464646" SelectedItem="{Binding DiskInfo,Mode=TwoWay}"  ItemsSource="{Binding DiskInfoData,Mode=TwoWay}">
+                        </ListBox>
+                    </StackPanel>
+                </Grid>
+                <Grid Grid.Column="1" Background="#5D5D5D"/>
+                <Grid Grid.Column="2" Margin="5 5 0 0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="35"/>
+                        <RowDefinition Height="3"/>
+                        <RowDefinition Height="35"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="60"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0" Grid.RowSpan="1">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                            <ListBox Height="28" Width="600" HorizontalAlignment="Left" ItemContainerStyle="{DynamicResource ListBoxItemURLbutton}" ItemsSource="{Binding ButtonInfo,Mode=TwoWay}"/>
+                            <TextBox Width="210" Height="28" Margin="50 0 0 0" FontSize="22"/>
+                            <Button Width="28" Margin="10 0 0 0" Style="{DynamicResource ButtonStyleEJBT}">
+                                <Viewbox Width="20" Height="20">
+                                    <Path Data="{StaticResource SearchIcon}" Fill="White"/>
+                                </Viewbox>
+                            </Button>
+                        </StackPanel>
+                    </Grid>
+                    <Grid Grid.Row="1" Background="#5D5D5D">
+                    </Grid>
+                    <Grid Grid.Row="2">
+                        <StackPanel Orientation="Horizontal">
+                            <Button  Width="70" Height="30"  Command="{Binding UpPage,Mode=TwoWay}">
+                                <Viewbox Width="20" Height="20">
+                                    <Path Data="{StaticResource UpPage}" Fill="White"/>
+                                </Viewbox>
+                            </Button>
+                            <Button Content=".XLSX" Width="100" Height="30" Foreground="White" HorizontalAlignment="Left" Margin="10 0 0 0" Style="{DynamicResource ButtonStyleEJBT}" Command="{Binding  Returnpage,Mode=TwoWay}" CommandParameter=".XLSX"/>
+                            <Button Content=".PPT" Width="100"  Height="30" Foreground="White" HorizontalAlignment="Left" Margin="10 0 0 0" Style="{DynamicResource ButtonStyleEJBT}" Command="{Binding  Returnpage,Mode=TwoWay}" CommandParameter=".PPT"/>
+                            <Button Content=".DOCX" Width="100" Height="30" Foreground="White" HorizontalAlignment="Left" Margin="10 0 0 0" Style="{DynamicResource ButtonStyleEJBT}" Command="{Binding  Returnpage,Mode=TwoWay}" CommandParameter=".DOCX"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                            <Button Width="30" Height="30" Style="{DynamicResource ButtonStyleEJBT}" Margin="0 0 5 0">
+                                <Viewbox Width="20" Height="20">
+                                    <Path Data="{StaticResource UploadCloud}" Fill="White"/>
+                                </Viewbox>
+                            </Button>
+                            <Button Width="30" Height="30" Style="{DynamicResource ButtonStyleEJBT}"  Margin="0 0 5 0">
+                                <Viewbox Width="20" Height="20">
+                                    <Path Data="{StaticResource NewFolder}" Fill="White"/>
+                                </Viewbox>
+                            </Button>
+                            <Button Width="30" Height="30" Style="{DynamicResource ButtonStyleEJBT}" Margin="0 0 20 0" Visibility="{Binding ShowList,Mode=TwoWay}" Command="{Binding Islist,Mode=TwoWay}" CommandParameter="list">
+                                <Viewbox Width="20" Height="20">
+                                    <Path Data="{StaticResource BriefIcon}" Fill="White"/> 
+                                </Viewbox>
+                            </Button>
+                            <Button Width="30" Height="30" Style="{DynamicResource ButtonStyleEJBT}" Margin="-70 0 0 0" Visibility="{Binding ShowImg,Mode=TwoWay}" Command="{Binding Islist,Mode=TwoWay}" CommandParameter="img">
+                                <Viewbox Width="20" Height="20">
+                                    <Path Data="{StaticResource ListIcon}" Fill="White"/>
+                                </Viewbox>
+                            </Button>
+                        </StackPanel>
+                    </Grid>
+                    <Grid Grid.Row="3" Background="#FFFFFF" Margin="0 3 20 0" Visibility="{Binding ShowList}">
+                        <!--<Grid.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="上传"/>
+                                <MenuItem Header="新建文件夹"/>
+                                <MenuItem Header="刷新"/>
+                                <MenuItem Header="粘贴"/>
+                                <MenuItem Header="查看方式">
+                                    <MenuItem Header="列表显示"/>
+                                    <MenuItem Header="略缩图"/>
+                                </MenuItem>
+                            </ContextMenu>
+                        </Grid.ContextMenu>-->
+
+                        <ListBox Height="465" Width="905" ItemsSource="{Binding FileInfosData,Mode=TwoWay}" ItemContainerStyle="{DynamicResource ListBoxItemstyleWJGL}" SelectedItem="{Binding FileInfos,Mode=TwoWay}">
+                            <ListBox.Template>
+                                <ControlTemplate TargetType="{x:Type ListBox}">
+                                    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                                        <WrapPanel Orientation="Horizontal" IsItemsHost="True" ScrollViewer.CanContentScroll="True"/>
+                                    </ScrollViewer>
+                                </ControlTemplate>
+                            </ListBox.Template>
+                        </ListBox>
+                    </Grid>
+                    <Grid Grid.Row="3" Background="#FFFFFF" Margin="0 3 20 0" Visibility="{Binding ShowImg}">
+                        <DataGrid>
+                            <DataGrid.Columns>
+                                
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                    <Grid Grid.Row="4">
+                        <Button Height="50" Width="150" HorizontalAlignment="Right" Content="打开" Margin="0 0 20 0" Style="{DynamicResource ButtonStyleEJBT}">
+                        </Button>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Border>
+    
+</Window>
